@@ -1,0 +1,14 @@
+﻿using AppServices.Birthdays.Services;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace Register.Registrars;
+
+public static class AppServicesRegistrar
+{
+    public static IServiceCollection AddAppServices(this IServiceCollection services)
+    {
+        services.AddScoped<IBirthdayService, BirthdayService>();
+            
+        return services;
+    }
+}

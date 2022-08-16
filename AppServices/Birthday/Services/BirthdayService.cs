@@ -4,6 +4,7 @@ using AutoMapper;
 using Contracts.Birthdays.GetBirthdays;
 using Contracts.Birthdays.GetBirthdays.Dto;
 using Domain;
+using Microsoft.Extensions.Configuration;
 
 namespace AppServices.Birthdays.Services;
 
@@ -11,10 +12,12 @@ public class BirthdayService : IBirthdayService
 {
     private readonly IBirthdayRepository _birthdayRepository;
     private readonly IMapper _mapper;
+    private readonly IConfiguration _configuration;
 
-    BirthdayService(IBirthdayRepository birthdayRepository, IMapper mapper)
+    public BirthdayService(IBirthdayRepository birthdayRepository, IConfiguration configuration, IMapper mapper)
     {
         _birthdayRepository = birthdayRepository;
+        _configuration = configuration;
         _mapper = mapper;
     }
 
