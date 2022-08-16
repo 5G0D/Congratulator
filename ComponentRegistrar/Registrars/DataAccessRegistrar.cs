@@ -15,7 +15,7 @@ public static class DataAccessRegistrar
 
     public static void AddDataAccessServices(this IServiceCollection services, IConfiguration configuration, IHostEnvironment environment )
     {
-        /*var connectionStringFieldName = environment.IsDevelopment()
+        var connectionStringFieldName = environment.IsDevelopment()
             ? ConnectionStringsLocal
             : ConnectionStringsDocker;
         
@@ -25,10 +25,10 @@ public static class DataAccessRegistrar
             throw new InvalidOperationException(
                 $"Не найдена строка подключения с именем '{connectionStringFieldName}'");
             
-        services.AddDbContextPool<FamilyBudgetDbContext>(options =>
+        services.AddDbContextPool<CongratulatorDbContext>(options =>
         {
             options.UseNpgsql(connectionString).UseLazyLoadingProxies();
-        });*/
+        });
 
         services.AddScoped<DbContext>(sp => sp.GetRequiredService<CongratulatorDbContext>());
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
