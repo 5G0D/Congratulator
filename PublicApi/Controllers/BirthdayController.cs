@@ -9,7 +9,7 @@ namespace Congratulator.Controllers;
 [Route("api/birthdays")]
 [Produces("application/json")]
 [ApiController]
-public class BirthdayController
+public class BirthdayController : ControllerBase
 {
     private readonly IMediator _mediator;
     
