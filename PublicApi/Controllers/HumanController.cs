@@ -31,21 +31,21 @@ public class HumansController : ControllerBase
         return Ok(await _mediator.Send(new GetHumansQuery(request), cancellation));
     }
     
-    [HttpGet("createHuman")]
+    [HttpPost("createHuman")]
     [ProducesResponseType(typeof(CreateHumanResponse), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> CreateHuman([FromQuery] CreateHumanRequest request, CancellationToken cancellation)
     {
         return Ok(await _mediator.Send(new CreateHumanCommand(request), cancellation));
     }
     
-    [HttpGet("deleteHuman")]
+    [HttpPost("deleteHuman")]
     [ProducesResponseType(typeof(DeleteHumanResponse), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> DeleteHuman([FromQuery] DeleteHumanRequest request, CancellationToken cancellation)
     {
         return Ok(await _mediator.Send(new DeleteHumanCommand(request), cancellation));
     }
     
-    [HttpGet("updateHuman")]
+    [HttpPost("updateHuman")]
     [ProducesResponseType(typeof(UpdateHumanResponse), (int)HttpStatusCode.OK)]
     public async Task<IActionResult> UpdateHuman([FromQuery] UpdateHumanRequest request, CancellationToken cancellation)
     {
