@@ -1,14 +1,14 @@
-﻿using Contracts.Birthdays.GetBirthdays.Dto;
-using Domain;
+﻿using Domain;
 using AutoMapper;
+using Contracts.Humans.Dto;
 
 namespace AppServices.Shared.MapProfiles;
 
-public class BirthdayMapProfile : Profile
+public class HumanMapProfile : Profile
 {
-    public BirthdayMapProfile()
+    public HumanMapProfile()
     {
-        CreateMap<BirthdayEntity, BirthdayDto>()
+        CreateMap<HumanEntity, HumanDto>()
             .ForMember(dest => dest.BirthDay, opt => opt.MapFrom(src => src.BirthDay.ToString("dd.MM.yyyy")));
     }
 }

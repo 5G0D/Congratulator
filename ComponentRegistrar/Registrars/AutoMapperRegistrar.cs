@@ -16,7 +16,7 @@ public static class AutoMapperRegistrar
     {
         var configuration = new MapperConfiguration(config =>
             {
-                config.AddProfile(new BirthdayMapProfile());
+                config.AddProfile(new HumanMapProfile());
             }
         );
         configuration.AssertConfigurationIsValid();

@@ -13,6 +13,6 @@ public class CongratulatorDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder
-            .ApplyConfiguration(new BirthdayConfiguration());
+            .ApplyConfiguration(new HumanConfiguration());
     }
 }

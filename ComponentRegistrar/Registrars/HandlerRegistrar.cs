@@ -1,5 +1,5 @@
-﻿using Contracts.Birthdays.GetBirthdays;
-using Handlers.GetBirthdays;
+﻿using Contracts.Humans.GetHumans;
+using Handlers.GetHumans;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,7 +11,7 @@ public static class HandlerRegistrar
     {
         services.AddMediatR(typeof(ApiRegistrar));
         
-        services.AddTransient<IRequestHandler<GetBirthdaysQuery, GetBirthdaysResponse>, GetBirthdaysHandler>();
+        services.AddTransient<IRequestHandler<GetHumansQuery, GetHumansResponse>, GetHumansHandler>();
         
         return services;
     }

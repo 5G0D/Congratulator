@@ -1,4 +1,4 @@
-﻿using AppServices.Birthdays.Repositories;
+﻿using AppServices.Shared.Repositories;
 using DataAccess;
 using DataAccess.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +33,6 @@ public static class DataAccessRegistrar
         services.AddScoped<DbContext>(sp => sp.GetRequiredService<CongratulatorDbContext>());
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             
-        services.AddScoped<IBirthdayRepository, BirthdayRepository>();
+        services.AddScoped<IHumanRepository, HumanRepository>();
     }
 }

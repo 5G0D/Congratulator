@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DataAccess.Configurations;
 
-public class BirthdayConfiguration : IEntityTypeConfiguration<BirthdayEntity>
+public class HumanConfiguration : IEntityTypeConfiguration<HumanEntity>
 {
-    public void Configure(EntityTypeBuilder<BirthdayEntity> builder)
+    public void Configure(EntityTypeBuilder<HumanEntity> builder)
     {
         
     }

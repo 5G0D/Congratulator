@@ -1,6 +1,6 @@
 ﻿namespace Domain;
 
-public record BirthdayEntity : Entity
+public record HumanEntity : Entity
 {
     public DateTime BirthDay { get; set; }
     public string Name { get; set; } = null!;
