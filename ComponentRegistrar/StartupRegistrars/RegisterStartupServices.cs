@@ -10,12 +10,12 @@ public static class RegisterStartupServices
     {
         ConfigurationManager configuration = builder.Configuration;
         IWebHostEnvironment environment = builder.Environment;
-        
-        builder.Services.AddApiServices();
-        builder.Services.AddDataAccessServices(configuration, environment);
-        builder.Services.AddAutoMapperService();
-        builder.Services.AddAppServices();
-        builder.Services.AddHandlerService();
+
+        builder.Services.AddApiServices()
+            .AddDataAccessServices(configuration, environment)
+            .AddAutoMapperService()
+            .AddAppServices()
+            .AddHandlerService();
         
         return builder;
     }

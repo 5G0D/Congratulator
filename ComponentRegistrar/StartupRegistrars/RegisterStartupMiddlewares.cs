@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Hosting;
+using Register.Configurators;
 
 namespace Register.Registrars;
 
@@ -16,6 +17,8 @@ public static class RegisterStartupMiddlewares
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
+        
+        app.UseExceptionHandling();
 
         app.MapControllers();
 

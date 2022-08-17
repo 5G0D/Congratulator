@@ -13,7 +13,7 @@ public static class DataAccessRegistrar
     private const string ConnectionStringsLocal = "ConnectionStringsLocal";
     private const string ConnectionStringsDocker = "ConnectionStringsDocker";
 
-    public static void AddDataAccessServices(this IServiceCollection services, IConfiguration configuration, IHostEnvironment environment )
+    public static IServiceCollection AddDataAccessServices(this IServiceCollection services, IConfiguration configuration, IHostEnvironment environment )
     {
         var connectionStringFieldName = environment.IsDevelopment()
             ? ConnectionStringsLocal
@@ -34,5 +34,7 @@ public static class DataAccessRegistrar
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             
         services.AddScoped<IHumanRepository, HumanRepository>();
+
+        return services;
     }
 }

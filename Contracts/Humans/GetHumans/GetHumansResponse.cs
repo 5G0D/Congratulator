@@ -2,7 +2,7 @@
 
 namespace Contracts.Humans.GetHumans;
 
-public class GetHumansResponse
+public record GetHumansResponse
 {
     public IEnumerable<HumanDto> Humans { get; set; } = null!;
 }

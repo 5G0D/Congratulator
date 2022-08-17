@@ -14,6 +14,6 @@ public class GetHumansHandler : IRequestHandler<GetHumansQuery, GetHumansRespons
     }
     public async Task<GetHumansResponse> Handle(GetHumansQuery request, CancellationToken cancellation)
     {
-        return await _humanService.GetHumans(request.request, cancellation);
+        return await _humanService.GetHumans(request.Request, cancellation);
     }
 }

@@ -1,6 +1,3 @@
 ﻿namespace Contracts.Humans.GetHumans;
 
-public class GetHumansRequest
-{
-    
-}
+public record GetHumansRequest;

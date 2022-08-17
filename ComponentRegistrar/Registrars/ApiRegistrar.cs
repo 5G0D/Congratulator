@@ -4,10 +4,12 @@ namespace Register.Registrars;
 
 public static class ApiRegistrar
 {
-    public static void AddApiServices(this IServiceCollection services)
+    public static IServiceCollection AddApiServices(this IServiceCollection services)
     {
         services.AddControllers();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
+
+        return services;
     }
 }

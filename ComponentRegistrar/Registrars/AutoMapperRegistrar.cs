@@ -9,6 +9,7 @@ public static class AutoMapperRegistrar
     public static IServiceCollection AddAutoMapperService(this IServiceCollection services)
     {
         services.AddSingleton<IMapper>(new Mapper(GetMapperConfiguration()));
+        
         return services;
     }
 

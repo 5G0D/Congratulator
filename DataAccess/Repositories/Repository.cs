@@ -6,33 +6,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Repositories;
 
-/// <summary>
-/// Обобщенный репозиторий для работы с сущностями.
-/// </summary>
-/// <typeparam name="TEntity">Тип сущности.</typeparam>
 public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
 {
-    /// <summary>
-    /// Контекст подключения к базе.
-    /// </summary>
     private DbContext DbContext { get; }
-
-    /// <summary>
-    /// Хранилище сущностей типа <typeparamref name="TEntity"/>.
-    /// </summary>
     private DbSet<TEntity> DbSet { get; }
-
-    /// <summary>
-    /// Инициализирует репозиторий.
-    /// </summary>ё
-    /// <param name="context">Контекст.</param>
+    
     public Repository(DbContext context)
     {
         DbContext = context;
         DbSet = DbContext.Set<TEntity>();
     }
-
-    /// <inheritdoc />
+    
     public TEntity Find(object id)
     {
         if (id == null)
@@ -40,8 +24,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
 
         return DbSet.Find(id);
     }
-
-    /// <inheritdoc />
+    
     public async Task<TEntity> FindAsync(object id, CancellationToken cancellation = default)
     {
         if (id == null)
@@ -49,14 +32,12 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
 
         return await DbSet.FindAsync(new[] { id }, cancellation);
     }
-
-    /// <inheritdoc />
+    
     public IQueryable<TEntity> Query()
     {
         return DbSet;
     }
-
-    /// <inheritdoc />
+    
     public IQueryable<TEntity> Where(Expression<Func<TEntity, bool>> predicate)
     {
         if (predicate == null)
@@ -66,8 +47,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
 
         return DbSet.Where(predicate);
     }
-
-    /// <inheritdoc />
+    
     public Task<IReadOnlyCollection<TProjection>> QueryAsync<TProjection>(
         Func<IQueryable<TEntity>, Task<IReadOnlyCollection<TProjection>>> selector,
         CancellationToken cancellation = new CancellationToken())
@@ -77,8 +57,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
 
         return selector(DbSet);
     }
-
-    /// <inheritdoc />
+    
     public int Count(Expression<Func<TEntity, bool>> predicate)
     {
         if (predicate == null)
@@ -86,8 +65,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
 
         return DbSet.Count(predicate);
     }
-
-    /// <inheritdoc />
+    
     public async Task<int> CountAsync(Expression<Func<TEntity, bool>> predicate,
         CancellationToken cancellation = default)
     {
@@ -96,8 +74,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
 
         return await DbSet.CountAsync(predicate, cancellation);
     }
-
-    /// <inheritdoc />
+    
     public bool Exists(object key)
     {
         if (key == null)
@@ -111,8 +88,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
 
         return DbSet.Any(predicate);
     }
-
-    /// <inheritdoc />
+    
     public async Task<bool> ExistsAsync(object key, CancellationToken cancellation = default)
     {
         if (key == null)
@@ -126,32 +102,27 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
 
         return await DbSet.AnyAsync(predicate, cancellation);
     }
-
-    /// <inheritdoc />
+    
     public bool Exists(Expression<Func<TEntity, bool>> predicate)
     {
         return DbSet.Any(predicate);
     }
-
-    /// <inheritdoc />
+    
     public Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellation = default)
     {
         return DbSet.AnyAsync(predicate, cancellation);
     }
-
-    /// <inheritdoc />
+    
     public void SaveChanges()
     {
         DbContext.SaveChanges();
     }
-
-    /// <inheritdoc />
+    
     public async Task SaveChangesAsync(CancellationToken cancellation = default)
     {
         await DbContext.SaveChangesAsync(cancellation);
     }
-
-    /// <inheritdoc />
+    
     public void Add(TEntity entity)
     {
         if (entity == null)
@@ -161,8 +132,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
         DbContext.Add(entity);
         SaveChanges();
     }
-
-    /// <inheritdoc />
+    
     public async Task<int> AddAsync(TEntity entity, CancellationToken cancellation = default)
     {
         if (entity == null)
@@ -175,24 +145,21 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
         
         return entityEntry.Entity.Id;
     }
-
-    /// <inheritdoc />
+    
     public void Update(TEntity entity)
     {
         UpdateEntity(entity);
 
         SaveChanges();
     }
-
-    /// <inheritdoc />
+    
     public async Task UpdateAsync(TEntity entity, CancellationToken cancellation = default)
     {
         UpdateEntity(entity);
 
         await SaveChangesAsync(cancellation);
     }
-
-    /// <inheritdoc />
+    
     public void Delete(object key, bool throwIfNotFound)
     {
         if (key == null)
@@ -212,8 +179,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
                 break;
         }
     }
-
-    /// <inheritdoc />
+    
     public async Task DeleteAsync(object key, bool throwIfNotFound, CancellationToken cancellation = default)
     {
         if (key == null)
@@ -232,7 +198,6 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
         }
     }
 
-    /// <inheritdoc />
     public void AddRange(IEnumerable<TEntity> entities)
     {
         var enumerable = entities.ToList();
@@ -247,8 +212,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
         DbContext.AddRange(enumerable);
         SaveChanges();
     }
-
-    /// <inheritdoc />
+    
     public async Task AddRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellation = default)
     {
         var enumerable = entities.ToList();
@@ -265,7 +229,6 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
         await SaveChangesAsync(cancellation);
     }
     
-    /// <inheritdoc />
     public PropertyInfo GetPrimaryKeyProperty()
     {
         var keyProperties = DbContext.Model.FindEntityType(typeof(TEntity)).FindPrimaryKey().Properties
@@ -276,11 +239,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
 
         return keyProperties.Single();
     }
-
-    /// <summary>
-    /// Метод обновление сущности.
-    /// </summary>
-    /// <param name="entity">Тип сущности.</param>
+    
     private void UpdateEntity(TEntity entity)
     {
         if (entity == null)
