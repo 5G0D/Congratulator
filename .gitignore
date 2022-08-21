@@ -74,7 +74,7 @@ src/main/vue-for-idea.jar
 ## Plugin-specific files:
 
 # IntelliJ
-/out/
+/UI/out/
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
@@ -91,10 +91,10 @@ crashlytics-build.properties
 ## Plugin-specific files:
 
 # IntelliJ
-/out/
-src/main/gen/
+/UI/out/
+/UI/src/main/gen/
 # mpeltonen/sbt-idea plugin
-/src/main/java/io/j99/idea/vue/lexer/idea-flex.skeleton
+/UI/src/main/java/io/j99/idea/vue/lexer/idea-flex.skeleton
 .idea_modules/
 
 # JIRA plugin
@@ -104,4 +104,5 @@ atlassian-ide-plugin.xml
 com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
-/node_modules/
+/UI/node_modules/
+
