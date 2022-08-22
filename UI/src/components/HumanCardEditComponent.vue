@@ -15,14 +15,15 @@
             label="Фото"
             color="white"
             accept="image/*"
+            :input-style="{color : '#dedefc' }"
             @update:model-value="updateFile()"
           />
         </div>
         <div class="col-1 q-my-md no-wrap">
-          <q-input color="white" filled v-model="name" label="Имя"/>
+          <q-input color="white" :input-style="{color : '#dedefc' }" filled v-model="name" label="Имя"/>
         </div>
         <div class="col-1 q-my-md no-wrap">
-          <q-input color="white" v-model="birthday" filled type="date" label="Дата рождения" />
+          <q-input color="white" :input-style="{color : '#dedefc' }" v-model="birthday" filled type="date" label="Дата рождения" />
         </div>
 
         <div class="col-1 q-my-md column justify-center">
