@@ -35,7 +35,7 @@ public class HumansController : ControllerBase
     
     [HttpPost("createHuman")]
     [ProducesResponseType(typeof(CreateHumanResponse), (int)HttpStatusCode.OK)]
-    public async Task<IActionResult> CreateHuman([FromQuery] CreateHumanRequest request, CancellationToken cancellation)
+    public async Task<IActionResult> CreateHuman([FromBody] CreateHumanRequest request, CancellationToken cancellation)
     {
         return Ok(await _mediator.Send(new CreateHumanCommand(request), cancellation));
     }
@@ -49,7 +49,7 @@ public class HumansController : ControllerBase
     
     [HttpPost("updateHuman")]
     [ProducesResponseType(typeof(UpdateHumanResponse), (int)HttpStatusCode.OK)]
-    public async Task<IActionResult> UpdateHuman([FromQuery] UpdateHumanRequest request, CancellationToken cancellation)
+    public async Task<IActionResult> UpdateHuman([FromBody] UpdateHumanRequest request, CancellationToken cancellation)
     {
         return Ok(await _mediator.Send(new UpdateHumanCommand(request), cancellation));
     }

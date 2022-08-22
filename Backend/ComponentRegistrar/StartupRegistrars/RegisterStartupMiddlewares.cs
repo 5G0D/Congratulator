@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Hosting;
 using Register.Configurators;
 
-namespace Register.Registrars;
+namespace Register.StartupRegistrars;
 
 public static class RegisterStartupMiddlewares
 {
@@ -12,6 +12,7 @@ public static class RegisterStartupMiddlewares
         {
             app.UseSwagger();
             app.UseSwaggerUI();
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader());
         }
 
         app.UseHttpsRedirection();
