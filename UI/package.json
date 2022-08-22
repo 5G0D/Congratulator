@@ -2,7 +2,7 @@
   "name": "congratulator-vue",
   "version": "0.0.1",
   "description": "Поздравлятор",
-  "productName": "Congratulator",
+  "productName": "Поздравлятор",
   "author": "Vladimir Veelis <mr.laidboy@gmail.com>",
   "private": true,
   "scripts": {
