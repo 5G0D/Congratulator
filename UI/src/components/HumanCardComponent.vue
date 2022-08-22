@@ -3,69 +3,90 @@
     flat
     class="bg-color rounded"
   >
-    <q-card-section v-if="humanLoaded">
-      <q-scroll-area style="height: 70vh">
-        <div class="border">
-          <q-img style="max-height: 30vh" fit="contain" class="rounded" :src="human.photo"></q-img>
+    <q-card-section style="height: 75vh" v-if="humanLoaded">
+      <div class="column fit">
+        <div class="col q-ma-sm field-bg rounded"><q-img class="rounded" height="100%" fit="cover" :src="human.photo"></q-img></div>
+        <div class="col-2 q-ma-sm field-bg rounded text-wrap text-color">
+          <div class="q-pa-sm text-center vertical-between">
+            <div class="text-weight-bold">Имя</div>
+            <div>{{ human.name }}</div>
+            <div></div>
+          </div>
         </div>
-        <div class="text-h6 text-grey-3 q-mt-lg">Имя: {{ human.name }}</div>
-        <div class="text-h6 text-grey-3 q-mt-lg">Дата рождения: {{ human.birthday }}</div>
-        <div class="text-h6 text-grey-3 q-mt-lg">День рождения: {{ human.nextBirthday }}</div>
-      </q-scroll-area>
+        <div class="col-2 q-ma-sm field-bg rounded text-wrap text-color">
+          <div class="q-pa-sm text-center vertical-between">
+            <div class="text-weight-bold">Дата рождения</div>
+            <div class="">{{ human.birthday }}</div>
+            <div></div>
+          </div>
+        </div>
+        <div class="q-pa-sm col-2 q-ma-sm field-bg rounded text-wrap text-color">
+          <div class="text-center vertical-between">
+            <div class="text-weight-bold">День рождения</div>
+            <div class="">{{ human.nextBirthday }}</div>
+            <div></div>
+          </div>
+        </div>
+      </div>
     </q-card-section>
   </q-card>
 </template>
 
 <style>
-  .bg-color {
-    background-color:rgba(32, 32, 63, 0.5);
-  }
 
-  .border{
-    border: 1px solid rgba(32, 32, 63, 0.2);
-    border-radius: 25px;
-  }
 </style>
 
 <script>
 import {api} from "boot/axios";
+import {useQuasar} from "quasar";
+import {ref} from "vue";
 
 export default {
   name: "HumanElementCard",
 
-  data(){
-    return{
-      humanId: 0,
-      human: Object,
-      humanLoaded: Boolean,
-    }
+  props: {
+    id: String,
   },
 
-  mounted(){
-    this.humanLoaded = false;
+  created() {
+    this.$watch(
+      () => this.$route.params,
+      (toParams, previousParams) => {
+        this.loadData(toParams.id);
+      }
+    )
   },
 
-  methods: {
-    getHuman(id){
-      let obj = {};
-      obj.Id = id;
+  setup(props, context) {
+    const q = useQuasar();
 
-      api.get('/api/humans/getHumanById', { params:{ Id: id } })
+    const human = ref();
+    const humanLoaded = ref();
+
+    function loadData(id){
+      if (typeof id === 'undefined'){
+        humanLoaded.value = false;
+        return;
+      }
+
+      api.get('/api/humans/getHumanById', { params:{ Id: parseInt(id) } })
         .then((response) => {
-          this.human = response.data;
-          this.humanLoaded = (response.data === '') ? false : true;
+          human.value = response.data;
+          humanLoaded.value = (response.data === '') ? false : true;
         })
-        .catch(() => {
-          $q.notify({
+        .catch((e) => {
+          q.notify({
             color: 'negative',
             position: 'top',
             message: 'Не удалось получить данные',
             icon: 'report_problem'
           })
         });
-    },
+    }
 
+    loadData(props.id);
 
+    return { q, human, humanLoaded, loadData}
   }
 }
 </script>

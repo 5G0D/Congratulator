@@ -3,11 +3,43 @@ const routes = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/ComingBirthdaysPage') },
-      //{ path: 'new', component: () => import('pages/New.vue') },
-      //{ path: 'note/:id', component: () => import('pages/NotePage.vue') },
-      //{ path: 'coming_birthdays', component: () => import ('pages/ComingBirthdaysPage') },
-      { path: 'all_birthdays', component: () => import ('pages/AllBirthdaysPage') }
+      {
+        name: 'ComingBirthdaysIndex',
+        path: '',
+        component: () => import('pages/ComingBirthdaysPage'),
+        children: [
+          {
+            name: 'ComingBirthdaysView',
+            path: 'view/:id',
+            component: () => import('components/HumanCardComponent'),
+            props: true,
+          },
+        ],
+      },
+      {
+        name: 'AllBirthdaysIndex',
+        path: 'all_birthdays',
+        component: () => import ('pages/AllBirthdaysPage'),
+        children: [
+          {
+            name: 'AllBirthdaysView',
+            path: 'view/:id',
+            component: () => import('components/HumanCardComponent'),
+            props: true,
+          },
+          {
+            name: 'AllBirthdaysEdit',
+            path: 'edit/:id',
+            component: () => import('components/HumanCardEditComponent'),
+            props: true,
+          },
+          {
+            name: 'AllBirthdaysAdd',
+            path: 'add',
+            component: () => import('components/HumanCardAddComponent')
+          }
+        ]
+      }
     ]
   },
 

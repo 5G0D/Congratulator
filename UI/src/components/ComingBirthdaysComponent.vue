@@ -9,10 +9,10 @@
           <HumanElementCard class="col-12 col-md-3 q-mx-md q-mb-md"
                             v-for="(human, idx) in humans"
                             :key="idx"
+                            :id="human.id"
                             :name="human.name"
-                            :birthday="human.birthday"
-                            :photo="human.photo"
-                            @click="getHuman(human.id)">
+                            :nextBirthday="human.nextBirthday"
+                            :photo="human.photo">
           </HumanElementCard>
         </div>
       </q-scroll-area>
@@ -21,25 +21,46 @@
 </template>
 
 <script>
-import HumanElementCard from 'components/HumanElementCard.vue'
+import HumanElementCard from 'components/HumanElementComponent.vue'
 import {api} from "boot/axios";
 import {useQuasar} from "quasar";
-import {ref} from 'vue'
+import {ref} from 'vue';
+import moment from 'moment';
 
 export default {
   name: "ComingBirthdaysComponent",
   components: {HumanElementCard},
-  setup(){
+
+  setup(props, context){
     const $q = useQuasar();
     const humans = ref(null);
+
+    function sortHumans(humans){
+      return humans.sort((h1, h2) => {
+        if (moment(h1.nextBirthday, "DD.MM.YYYY") > moment(h2.nextBirthday, "DD.MM.YYYY"))
+          return 1;
+        else if (moment(h2.nextBirthday, "DD.MM.YYYY") > moment(h1.nextBirthday, "DD.MM.YYYY"))
+          return -1;
+        else
+          return 0;
+      });
+    }
+
+    function getComingBirthdays(humans){
+      let coming = humans.filter(function(h, index, arr) {
+        return moment(h.nextBirthday, "DD.MM.YYYY").diff(moment().startOf('day'),"days") < 4;
+      });
+
+      return sortHumans(coming);
+    }
 
     function loadData () {
       api.get('/api/humans/getHumans')
         .then((response) => {
-          humans.value = response.data['humans']
+          humans.value = getComingBirthdays(response.data['humans']);
         })
-        .catch(() => {
-          console.log('error')
+        .catch((e) => {
+          console.log(e)
           $q.notify({
             color: 'negative',
             position: 'top',
@@ -50,15 +71,10 @@ export default {
     }
     loadData();
 
-    return {humans};
-  },
-
-  methods: {
-    getHuman(id){
-      this.$emit('getHuman', id);
-    }
+    return { humans, loadData};
   }
 }
+
 </script>
 
 <style scoped>

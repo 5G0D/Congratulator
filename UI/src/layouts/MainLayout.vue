@@ -9,8 +9,8 @@
       <q-footer class="bg-transparent">
         <div class="row no-wrap items-center justify-center q-mb-sm">
           <q-btn class="q-mx-sm additional_butt text-capitalize" size=md unelevated rounded color="primary" label="Ближайшие ДР" to="/"></q-btn>
-          <q-btn size=lg unelevated round color="primary" icon="add"></q-btn>
-          <q-btn class="q-mx-sm additional_butt text-capitalize" unelevated size=md rounded color="primary" label="Все ДР" to="all_birthdays"></q-btn>
+          <q-btn size=lg unelevated round color="primary" icon="add" to="/all_birthdays/add"></q-btn>
+          <q-btn class="q-mx-sm additional_butt text-capitalize" unelevated size=md rounded color="primary" label="Все ДР" to="/all_birthdays"></q-btn>
         </div>
       </q-footer>
     </q-layout>
